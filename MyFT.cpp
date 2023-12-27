@@ -1,11 +1,18 @@
 #include "MyFt.h"
 
-// 定义一个位图类，用来刻画内存页面的分配状态
+
+
+// struct Process {
+//     int id;
+//     std::vector<int> pages;
+// };
+
+// 位图类
 class BitMap {
 private:
-    vector<bool> bits; // 用一个布尔向量存储位图
-    int free_count; // 用一个整数记录空闲页面的数量
-    mutex mtx; // 用一个互斥锁保证线程安全
+    vector<bool> bits; // 存储位图
+    int free_count; // 空闲页面的数量
+    mutex mtx; // 互斥锁，保证线程安全
 public:
     // 构造函数，初始化位图
     BitMap(int size) {
@@ -45,32 +52,34 @@ public:
     }
 };
 
-// 定义一个页面类，用来存储页面的信息
+// 页面类
 class Page {
 private:
     int job_id; // 作业号
     int page_id; // 页面号
 public:
-    // 构造函数，初始化页面信息
-    Page(int job_id, int page_id) {
-        this->job_id = job_id;
-        this->page_id = page_id;
-    }
+    Page(int job_id = 0, int page_id = 0) : job_id(job_id), page_id(page_id) {}
 
     // 获取作业号
-    int get_job_id() {
+    int get_job_id() const {
         return job_id;
     }
 
     // 获取页面号
-    int get_page_id() {
+    int get_page_id() const {
         return page_id;
     }
 
-    // 重载输出运算符，方便打印页面信息
-    friend ostream& operator<<(ostream& os, const Page& page) {
+    // 重载输出
+    friend std::ostream& operator<<(std::ostream& os, const Page& page) {
         os << "<" << page.job_id << ", " << page.page_id << ">";
         return os;
+    }
+
+    // 重载输入
+    friend std::istream& operator>>(std::istream& is, Page& page) {
+        is >> page.job_id >> page.page_id;
+        return is;
     }
 };
 
@@ -218,7 +227,8 @@ public:
         }
     }
 
-    // 分配内存，为进程分配 PROCESS_PAGE_NUM 个页面和一个存放页表的页面
+  //写的什么乱七八糟的cjb？
+  //没copilot自己看得懂？
     void allocate_memory() {
         while (memory->get_free_count() < PROCESS_PAGE_NUM + 1) { // 如果空闲页面数不足
             cout << "Job " << job_id << " is waiting for memory resources." << endl; // 输出等待信息
@@ -296,6 +306,8 @@ public:
         cout << "Page " << p << " in frame " << frame << " is replaced by page <" << job_id << ", " << page << ">" << endl; // 输出置换信息
         return frame; // 返回物理页面号
     }
+
+
         // 根据页面置换算法更新相关的数据结构，传入页面号和物理页面号
     void update_algorithm(int page, int frame) {
         if (algorithm == "FIFO") { // 如果是 FIFO 算法
@@ -317,6 +329,8 @@ public:
         cout << "The page fault rate of job " << job_id << " is " << rate << endl; // 输出缺页中断率
     }
 };
+
+
 
 // 定义一个作业类，用来模拟作业的创建和运行
 class Job {
