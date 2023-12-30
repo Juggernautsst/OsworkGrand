@@ -4,7 +4,7 @@
 // 主函数，测试代码
 int main() {
     Memory* memory = new Memory(MEMORY_SIZE); // 创建内存对象
-    string algorithm; // 定义页面置换算法
+    string algorithm; 
     cout << "Please enter the page replacement algorithm (FIFO or LRU): " << endl; 
     cin >> algorithm; 
     run_jobs(PROCESS_NUM, memory, algorithm); 
