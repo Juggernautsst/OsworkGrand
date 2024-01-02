@@ -5,7 +5,7 @@
 int main() {
     Memory* memory = new Memory(MEMORY_SIZE); // 创建内存对象
     string algorithm; 
-    cout << "Please enter the page replacement algorithm (FIFO or LRU): " << endl; 
+    cout << "请输入替换算法名称 (FIFO or LRU): " << endl; 
     cin >> algorithm; 
     run_jobs(PROCESS_NUM, memory, algorithm); 
     delete memory; // 释放内存

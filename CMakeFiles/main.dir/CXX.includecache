@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/root/Oswork/Grand/MyFT.cpp
+MyFt.h
+/root/Oswork/Grand/MyFt.h
+
+/root/Oswork/Grand/MyFt.h
+iostream
+-
+vector
+-
+random
+-
+thread
+-
+chrono
+-
+fstream
+-
+string
+-
+unordered_map
+-
+cmath
+-
+mutex
+-
+queue
+-
+
+/root/Oswork/Grand/main.cpp
+MyFT.cpp
+/root/Oswork/Grand/MyFT.cpp
+MyFt.h
+/root/Oswork/Grand/MyFt.h
+
